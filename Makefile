@@ -2,6 +2,7 @@ DOCKER_COMPOSE_DIR=./.docker
 DOCKER_COMPOSE_FILE=$(DOCKER_COMPOSE_DIR)/docker-compose.yml
 DEFAULT_CONTAINER=workspace
 DOCKER_COMPOSE=docker-compose -f $(DOCKER_COMPOSE_FILE) --project-directory $(DOCKER_COMPOSE_DIR)
+NGINX_HOST_HTTP_PORT=81
 
 DEFAULT_GOAL := help
 help:
@@ -26,7 +27,7 @@ docker-build-from-scratch: docker-init ## Build all docker images from scratch, 
 
 .PHONY: docker-test
 docker-test: docker-init docker-up ## Run the infrastructure tests for the docker setup
-	sh $(DOCKER_COMPOSE_DIR)/docker-test.sh
+	bash $(DOCKER_COMPOSE_DIR)/docker-test.sh $(NGINX_HOST_HTTP_PORT)
 
 .PHONY: docker-build
 docker-build: docker-init ## Build all docker images. Build a specific image by providing the service name via: make docker-build CONTAINER=<service>

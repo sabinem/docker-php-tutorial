@@ -1,5 +1,7 @@
 #!/bin/sh
 
+NGINX_HOST_HTTP_PORT=$1
+
 function service_info(){
     service=$1
     echo ""
@@ -97,4 +99,4 @@ test_host_docker_internal ${service}
 service="nginx"
 service_info ${service}
 test_container_is_running ${service}
-test_request_nginx 127.0.0.1 "Hello world"
+test_request_nginx localhost:${NGINX_HOST_HTTP_PORT} "Hello world"
